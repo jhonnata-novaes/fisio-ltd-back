@@ -1,0 +1,6 @@
+@fisio_ltd_back_HostAddress = http://localhost:5147
+
+GET {{fisio_ltd_back_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

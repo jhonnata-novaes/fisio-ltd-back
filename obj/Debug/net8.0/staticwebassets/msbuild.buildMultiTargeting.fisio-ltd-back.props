@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\fisio-ltd-back.props" />
+</Project>
