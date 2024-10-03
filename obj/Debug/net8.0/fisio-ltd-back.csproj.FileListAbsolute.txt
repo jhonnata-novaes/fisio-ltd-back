@@ -275,3 +275,6 @@ C:\Users\Leonardo Ibraim\Documents\GitHub\fisio-ltd-back\obj\Debug\net8.0\fisio-
 C:\Users\Leonardo Ibraim\Documents\GitHub\fisio-ltd-back\obj\Debug\net8.0\ref\fisio-ltd-back.dll
 C:\Users\Leonardo Ibraim\Documents\GitHub\fisio-ltd-back\bin\Debug\net8.0\Npgsql.dll
 C:\Users\Leonardo Ibraim\Documents\GitHub\fisio-ltd-back\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Diogo\Documents\GitHub\fisio-ltd-back\bin\Debug\net8.0\Npgsql.dll
+C:\Users\Diogo\Documents\GitHub\fisio-ltd-back\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Diogo\Documents\GitHub\fisio-ltd-back\obj\Debug\net8.0\fisio-ltd-back.sourcelink.json

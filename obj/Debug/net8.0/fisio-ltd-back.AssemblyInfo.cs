@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("fisio-ltd-back")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d87c9461b0e537b4bd69cf755a8873d931aa0ef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c075a5210629a9b0e5a1080a0d2ff0af2475870")]
 [assembly: System.Reflection.AssemblyProductAttribute("fisio-ltd-back")]
 [assembly: System.Reflection.AssemblyTitleAttribute("fisio-ltd-back")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

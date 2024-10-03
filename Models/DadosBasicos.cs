@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fisio_ltd_back.Models
 {
@@ -26,9 +27,11 @@ namespace fisio_ltd_back.Models
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "O Peso é obrigatório.")]
+        [Column(TypeName = "decimal(5, 2)")] // Define precisão para PostgreSQL
         public decimal Peso { get; set; }
 
         [Required(ErrorMessage = "A Altura é obrigatória.")]
+        [Column(TypeName = "decimal(5, 2)")] // Define precisão para PostgreSQL
         public decimal Altura { get; set; }
 
         [Required(ErrorMessage = "O Endereço é obrigatório.")]
