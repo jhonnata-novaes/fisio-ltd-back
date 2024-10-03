@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Diogo\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj": {}
+    "C:\\Users\\Leonardo Ibraim\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Diogo\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj": {
+    "C:\\Users\\Leonardo Ibraim\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Diogo\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj",
+        "projectUniqueName": "C:\\Users\\Leonardo Ibraim\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj",
         "projectName": "fisio-ltd-back",
-        "projectPath": "C:\\Users\\Diogo\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj",
-        "packagesPath": "C:\\Users\\Diogo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Diogo\\Documents\\GitHub\\fisio-ltd-back\\obj\\",
+        "projectPath": "C:\\Users\\Leonardo Ibraim\\Documents\\GitHub\\fisio-ltd-back\\fisio-ltd-back.csproj",
+        "packagesPath": "C:\\Users\\Leonardo Ibraim\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Leonardo Ibraim\\Documents\\GitHub\\fisio-ltd-back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Diogo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Leonardo Ibraim\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -47,6 +47,12 @@
               "target": "Package",
               "version": "[8.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -54,6 +60,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.8, )"
             },

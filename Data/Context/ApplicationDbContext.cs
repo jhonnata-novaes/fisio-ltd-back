@@ -9,7 +9,7 @@ namespace fisio_ltd_back.Models
         {
         }
 
-        // Define a entidade/tabela do banco de dados
         public DbSet<DadosBasicos> DadosBasicos { get; set; }
+        // Adicione outros DbSets conforme necessário
     }
 }

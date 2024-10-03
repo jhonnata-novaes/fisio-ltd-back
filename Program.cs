@@ -3,37 +3,28 @@ using fisio_ltd_back.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do banco de dados
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+#region DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+);
+#endregion
 
-// Adiciona os serviços dos controllers
-builder.Services.AddControllers();
-
-// Adiciona o Swagger
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configura o pipeline de requisições HTTP
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
-
-// Habilita o Swagger
-app.UseSwagger();
-app.UseSwaggerUI(c => 
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-    c.RoutePrefix = string.Empty; // Para acessar na raiz do aplicativo
-});
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
