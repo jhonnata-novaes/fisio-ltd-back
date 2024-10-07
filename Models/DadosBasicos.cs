@@ -12,7 +12,7 @@ namespace fisio_ltd_back.Models
         public required string Nome { get; set; }  // Modificado para 'required'
 
         [Required(ErrorMessage = "A Data da Avaliação é obrigatória.")]
-        public DateTime DataAvaliacao { get; set; }
+        public DateTime? DataAvaliacao { get; set; } // Tornar anulável
 
         [Required(ErrorMessage = "O Estado Civil é obrigatório.")]
         public required string EstadoCivil { get; set; }  // Modificado para 'required'
