@@ -10,10 +10,10 @@ namespace fisio_ltd_back.Models
         }
 
         public DbSet<DadosBasicos> DadosBasicos { get; set; }
-        public DbSet<FichaAnamnese> FichasAnamnese { get; set; } 
-        public DbSet<DiagnosticoPrognostico> DiagnosticosPrognosticos { get; set; }
+        public DbSet<FichaAnamnese> FichasAnamnese { get; set; }
         public DbSet<Exames> Exames { get; set; }
-        public DbSet<TratamentoProposto> TratamentosPropostos { get; set; }
+        public DbSet<DiagnosticoPrognostico> DiagnosticoPrognostico { get; set; }
+        public DbSet<TratamentoProposto> TratamentoProposto { get; set; }
         
     }
 }

@@ -16,15 +16,13 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
-        // POST: api/paciente
         [HttpPost]
         public async Task<IActionResult> CreatePaciente(DadosBasicos dadosBasicos)
         {
             try
             {
-                // Convertendo DataNascimento e DataAvaliacao para UTC
                 dadosBasicos.DataNascimento = DateTime.SpecifyKind(dadosBasicos.DataNascimento, DateTimeKind.Utc);
-                if (dadosBasicos.DataAvaliacao.HasValue) // Verifica se DataAvaliacao está presente
+                if (dadosBasicos.DataAvaliacao.HasValue)
                 {
                     dadosBasicos.DataAvaliacao = DateTime.SpecifyKind(dadosBasicos.DataAvaliacao.Value, DateTimeKind.Utc);
                 }
@@ -42,18 +40,18 @@ namespace fisio_ltd_back.Controllers
         }
 
         // GET: api/paciente
-        [HttpGet]
-        public async Task<IActionResult> GetPacientes()
-        {
-            try
-            {
-                var pacientes = await _context.DadosBasicos.ToListAsync();
-                return Ok(pacientes);
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-            }
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetPacientes()
+        // {
+        //     try
+        //     {
+        //         var pacientes = await _context.DadosBasicos.ToListAsync();
+        //         return Ok(pacientes);
+        //     }
+        //     catch (DbUpdateException ex)
+        //     {
+        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+        //     }
+        // }
     }
 }

@@ -16,7 +16,6 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
-        // POST: api/exames
         [HttpPost]
         public async Task<IActionResult> CreateExame(Exames exame)
         {
@@ -35,18 +34,18 @@ namespace fisio_ltd_back.Controllers
         }
 
         // GET: api/exames
-        [HttpGet]
-        public async Task<IActionResult> GetExames()
-        {
-            try
-            {
-                var exames = await _context.Exames.ToListAsync();
-                return Ok(exames);
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-            }
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetExames()
+        // {
+        //     try
+        //     {
+        //         var exames = await _context.Exames.Include(e => e.DadosBasicos).ToListAsync();
+        //         return Ok(exames);
+        //     }
+        //     catch (DbUpdateException ex)
+        //     {
+        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+        //     }
+        // }
     }
 }

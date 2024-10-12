@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fisio_ltd_back.Models
 {
-    public class Exames
+    public class TratamentoProposto
     {
         [Key]
         public int Id { get; set; }
         public int DadosBasicosId { get; set; }
-        public string? ExamesComplementares { get; set; }
-        public string? ExameFisico { get; set; } 
-
+        public string? Plano { get; set; }
     }
 }

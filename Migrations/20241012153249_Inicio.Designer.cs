@@ -12,8 +12,8 @@ using fisio_ltd_back.Models;
 namespace fisio_ltd_back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241009143220_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241012153249_Inicio")]
+    partial class Inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,11 +33,10 @@ namespace fisio_ltd_back.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Altura")
-                        .HasColumnType("decimal(5, 2)");
+                    b.Property<decimal?>("Altura")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime?>("DataAvaliacao")
-                        .IsRequired()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DataNascimento")
@@ -47,42 +46,33 @@ namespace fisio_ltd_back.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Endereco")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("EstadoCivil")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nacionalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Naturalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NumeroIdentidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Peso")
-                        .HasColumnType("decimal(5, 2)");
+                    b.Property<decimal?>("Peso")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Profissao")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -98,26 +88,21 @@ namespace fisio_ltd_back.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DiagnosticoFisio")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PacienteId")
+                    b.Property<int>("DadosBasicosId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("PrognosticoFisio")
-                        .IsRequired()
+                    b.Property<string>("DiagnosticoFisio")
                         .HasColumnType("text");
 
-                    b.Property<string>("QuantidadeAtendimentos")
-                        .IsRequired()
+                    b.Property<string>("PrognosticoFisio")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Quantidade")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PacienteId");
-
-                    b.ToTable("DiagnosticosPrognosticos");
+                    b.ToTable("DiagnosticoPrognostico");
                 });
 
             modelBuilder.Entity("fisio_ltd_back.Models.Exames", b =>
@@ -128,20 +113,16 @@ namespace fisio_ltd_back.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ExameFisicoFuncional")
-                        .IsRequired()
+                    b.Property<int>("DadosBasicosId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ExameFisico")
                         .HasColumnType("text");
 
                     b.Property<string>("ExamesComplementares")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
 
                     b.ToTable("Exames");
                 });
@@ -154,32 +135,25 @@ namespace fisio_ltd_back.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DadosBasicosId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("HabitosVida")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HistoriaDoencaAtual")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HistoriaFamiliar")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("HistoriaPatologica")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Queixa")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
 
                     b.ToTable("FichasAnamnese");
                 });
@@ -192,62 +166,15 @@ namespace fisio_ltd_back.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PacienteId")
+                    b.Property<int>("DadosBasicosId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("PlanoTeraputico")
-                        .IsRequired()
+                    b.Property<string>("Plano")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PacienteId");
-
-                    b.ToTable("TratamentosPropostos");
-                });
-
-            modelBuilder.Entity("fisio_ltd_back.Models.DiagnosticoPrognostico", b =>
-                {
-                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("fisio_ltd_back.Models.Exames", b =>
-                {
-                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("fisio_ltd_back.Models.FichaAnamnese", b =>
-                {
-                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("fisio_ltd_back.Models.TratamentoProposto", b =>
-                {
-                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paciente");
+                    b.ToTable("TratamentoProposto");
                 });
 #pragma warning restore 612, 618
         }

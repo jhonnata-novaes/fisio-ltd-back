@@ -33,9 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-
-app.UseCors("AllowSpecificOrigin"); // Use a política de CORS definida
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllers();
 app.Run();

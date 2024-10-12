@@ -16,18 +16,13 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
-        // POST: api/diagnosticoprogostico
         [HttpPost]
         public async Task<IActionResult> CreateDiagnosticoPrognostico(DiagnosticoPrognostico diagnostico)
         {
             try
             {
-                if (diagnostico == null)
-                {
-                    return BadRequest("Dados do diagnóstico prognóstico não podem ser nulos.");
-                }
-
-                _context.DiagnosticosPrognosticos.Add(diagnostico);
+                // Salvando no banco de dados
+                _context.DiagnosticoPrognostico.Add(diagnostico);
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(CreateDiagnosticoPrognostico), new { id = diagnostico.Id }, diagnostico);
@@ -38,19 +33,18 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-        // GET: api/diagnosticoprogostico
-        [HttpGet]
-        public async Task<IActionResult> GetDiagnosticosPrognosticos()
-        {
-            try
-            {
-                var diagnosticos = await _context.DiagnosticosPrognosticos.ToListAsync();
-                return Ok(diagnosticos);
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-            }
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetDiagnosticoPrognostico()
+        // {
+        //     try
+        //     {
+        //         var diagnostico = await _context.DiagnosticoPrognostico.Include(e => e.DadosBasicos).ToListAsync();
+        //         return Ok(diagnostico);
+        //     }
+        //     catch (DbUpdateException ex)
+        //     {
+        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+        //     }
+        // }
     }
 }

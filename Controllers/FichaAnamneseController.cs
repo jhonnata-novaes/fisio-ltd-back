@@ -16,14 +16,11 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
-        // POST: api/FichaAnamnese
         [HttpPost]
         public async Task<IActionResult> CreateFichaAnamnese(FichaAnamnese fichaAnamnese)
         {
             try
             {
-                // Aqui você pode fazer qualquer pré-processamento ou validação que precisar
-
                 // Salvando no banco de dados
                 _context.FichasAnamnese.Add(fichaAnamnese);
                 await _context.SaveChangesAsync();
@@ -37,18 +34,18 @@ namespace fisio_ltd_back.Controllers
         }
 
         // GET: api/FichaAnamnese
-        [HttpGet]
-        public async Task<IActionResult> GetFichasAnamnese()
-        {
-            try
-            {
-                var fichas = await _context.FichasAnamnese.Include(f => f.Paciente).ToListAsync();
-                return Ok(fichas);
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-            }
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetFichasAnamnese()
+        // {
+        //     try
+        //     {
+        //         var fichas = await _context.FichasAnamnese.Include(f => f.Paciente).ToListAsync();
+        //         return Ok(fichas);
+        //     }
+        //     catch (DbUpdateException ex)
+        //     {
+        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+        //     }
+        // }
     }
 }

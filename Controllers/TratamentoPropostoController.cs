@@ -16,18 +16,13 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
-        // POST: api/tratamentoproposto
         [HttpPost]
         public async Task<IActionResult> CreateTratamentoProposto(TratamentoProposto tratamento)
         {
             try
             {
-                if (tratamento == null)
-                {
-                    return BadRequest("Dados do tratamento proposto não podem ser nulos.");
-                }
-
-                _context.TratamentosPropostos.Add(tratamento);
+                // Salvando no banco de dados
+                _context.TratamentoProposto.Add(tratamento);
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(CreateTratamentoProposto), new { id = tratamento.Id }, tratamento);
@@ -38,19 +33,18 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-        // GET: api/tratamentoproposto
-        [HttpGet]
-        public async Task<IActionResult> GetTratamentosPropostos()
-        {
-            try
-            {
-                var tratamentos = await _context.TratamentosPropostos.ToListAsync();
-                return Ok(tratamentos);
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-            }
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetTratamentoProposto()
+        // {
+        //     try
+        //     {
+        //         var tratamento = await _context.TratamentoProposto.Include(e => e.DadosBasicos).ToListAsync();
+        //         return Ok(tratamento);
+        //     }
+        //     catch (DbUpdateException ex)
+        //     {
+        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+        //     }
+        // }
     }
 }
