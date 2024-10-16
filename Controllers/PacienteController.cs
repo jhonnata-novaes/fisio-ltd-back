@@ -40,18 +40,18 @@ namespace fisio_ltd_back.Controllers
         }
 
         // GET: api/paciente
-        // [HttpGet]
-        // public async Task<IActionResult> GetPacientes()
-        // {
-        //     try
-        //     {
-        //         var pacientes = await _context.DadosBasicos.ToListAsync();
-        //         return Ok(pacientes);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+        [HttpGet]
+        public async Task<IActionResult> GetPacientes()
+        {
+            try
+            {
+                var pacientes = await _context.DadosBasicos.ToListAsync();
+                return Ok(pacientes);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+            }
+        }
     }
 }
