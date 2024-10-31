@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace fisio_ltd_back.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio : Migration
+    public partial class Inicio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,6 +52,12 @@ namespace fisio_ltd_back.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DiagnosticoPrognostico", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DiagnosticoPrognostico_DadosBasicos_DadosBasicosId",
+                        column: x => x.DadosBasicosId,
+                        principalTable: "DadosBasicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,6 +73,12 @@ namespace fisio_ltd_back.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Exames", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Exames_DadosBasicos_DadosBasicosId",
+                        column: x => x.DadosBasicosId,
+                        principalTable: "DadosBasicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +97,12 @@ namespace fisio_ltd_back.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FichasAnamnese", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FichasAnamnese_DadosBasicos_DadosBasicosId",
+                        column: x => x.DadosBasicosId,
+                        principalTable: "DadosBasicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,15 +117,38 @@ namespace fisio_ltd_back.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TratamentoProposto", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TratamentoProposto_DadosBasicos_DadosBasicosId",
+                        column: x => x.DadosBasicosId,
+                        principalTable: "DadosBasicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DiagnosticoPrognostico_DadosBasicosId",
+                table: "DiagnosticoPrognostico",
+                column: "DadosBasicosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exames_DadosBasicosId",
+                table: "Exames",
+                column: "DadosBasicosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FichasAnamnese_DadosBasicosId",
+                table: "FichasAnamnese",
+                column: "DadosBasicosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TratamentoProposto_DadosBasicosId",
+                table: "TratamentoProposto",
+                column: "DadosBasicosId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "DadosBasicos");
-
             migrationBuilder.DropTable(
                 name: "DiagnosticoPrognostico");
 
@@ -119,6 +160,9 @@ namespace fisio_ltd_back.Migrations
 
             migrationBuilder.DropTable(
                 name: "TratamentoProposto");
+
+            migrationBuilder.DropTable(
+                name: "DadosBasicos");
         }
     }
 }

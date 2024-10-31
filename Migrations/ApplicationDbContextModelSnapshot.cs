@@ -99,6 +99,8 @@ namespace fisio_ltd_back.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DadosBasicosId");
+
                     b.ToTable("DiagnosticoPrognostico");
                 });
 
@@ -120,6 +122,8 @@ namespace fisio_ltd_back.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DadosBasicosId");
 
                     b.ToTable("Exames");
                 });
@@ -152,6 +156,8 @@ namespace fisio_ltd_back.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DadosBasicosId");
+
                     b.ToTable("FichasAnamnese");
                 });
 
@@ -171,7 +177,53 @@ namespace fisio_ltd_back.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DadosBasicosId");
+
                     b.ToTable("TratamentoProposto");
+                });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.DiagnosticoPrognostico", b =>
+                {
+                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "DadosBasicos")
+                        .WithMany()
+                        .HasForeignKey("DadosBasicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DadosBasicos");
+                });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.Exames", b =>
+                {
+                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "DadosBasicos")
+                        .WithMany()
+                        .HasForeignKey("DadosBasicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DadosBasicos");
+                });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.FichaAnamnese", b =>
+                {
+                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "DadosBasicos")
+                        .WithMany()
+                        .HasForeignKey("DadosBasicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DadosBasicos");
+                });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.TratamentoProposto", b =>
+                {
+                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "DadosBasicos")
+                        .WithMany()
+                        .HasForeignKey("DadosBasicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DadosBasicos");
                 });
 #pragma warning restore 612, 618
         }

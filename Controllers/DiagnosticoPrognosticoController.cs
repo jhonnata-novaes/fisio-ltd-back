@@ -33,18 +33,20 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetDiagnosticoPrognostico()
-        // {
-        //     try
-        //     {
-        //         var diagnostico = await _context.DiagnosticoPrognostico.Include(e => e.DadosBasicos).ToListAsync();
-        //         return Ok(diagnostico);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+        [HttpGet]
+        public async Task<IActionResult> GetDiagnosticoPrognostico()
+        {
+            try
+            {
+                var diagnostico = await _context.DiagnosticoPrognostico
+                    .Include(d => d.DadosBasicos) // Inclui os dados básicos
+                    .ToListAsync();
+                return Ok(diagnostico);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+            }
+        }
     }
 }

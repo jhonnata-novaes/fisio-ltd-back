@@ -23,7 +23,7 @@ namespace fisio_ltd_back.Controllers
             try
             {
                 dadosBasicos.DataNascimento = DateTime.SpecifyKind(dadosBasicos.DataNascimento, DateTimeKind.Utc);
-                
+
                 // Trata a DataAvaliacao como anulável
                 if (dadosBasicos.DataAvaliacao.HasValue)
                 {
@@ -34,7 +34,7 @@ namespace fisio_ltd_back.Controllers
                 _context.DadosBasicos.Add(dadosBasicos);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(CreatePaciente), new { id = dadosBasicos.Id }, dadosBasicos);
+                return CreatedAtAction(nameof(GetPacientePorId), new { id = dadosBasicos.Id }, dadosBasicos);
             }
             catch (DbUpdateException ex)
             {
@@ -57,7 +57,7 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-
+        // GET: api/paciente/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPacientePorId(int id)
         {
@@ -72,7 +72,6 @@ namespace fisio_ltd_back.Controllers
             return Ok(paciente);
         }
 
-        
         // PUT: api/paciente/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarPaciente(int id, DadosBasicos dadosBasicos)

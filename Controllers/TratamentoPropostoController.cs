@@ -16,6 +16,7 @@ namespace fisio_ltd_back.Controllers
             _context = context;
         }
 
+        // POST: api/tratamentoProposto
         [HttpPost]
         public async Task<IActionResult> CreateTratamentoProposto(TratamentoProposto tratamento)
         {
@@ -33,18 +34,32 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetTratamentoProposto()
-        // {
-        //     try
-        //     {
-        //         var tratamento = await _context.TratamentoProposto.Include(e => e.DadosBasicos).ToListAsync();
-        //         return Ok(tratamento);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+        // GET: api/tratamentoProposto
+        [HttpGet]
+        public async Task<IActionResult> GetTratamentoProposto()
+        {
+            try
+            {
+                var tratamento = await _context.TratamentoProposto.Include(e => e.DadosBasicos).ToListAsync();
+                return Ok(tratamento);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+            }
+        }
+
+        // GET: api/tratamentoProposto/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTratamentoPropostoPorId(int id)
+        {
+            var tratamento = await _context.TratamentoProposto.FindAsync(id);
+            if (tratamento == null)
+            {
+                return NotFound("Tratamento não encontrado.");
+            }
+
+            return Ok(tratamento);
+        }
     }
 }

@@ -34,18 +34,18 @@ namespace fisio_ltd_back.Controllers
         }
 
         // GET: api/FichaAnamnese
-        // [HttpGet]
-        // public async Task<IActionResult> GetFichasAnamnese()
-        // {
-        //     try
-        //     {
-        //         var fichas = await _context.FichasAnamnese.Include(f => f.Paciente).ToListAsync();
-        //         return Ok(fichas);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+        [HttpGet]
+        public async Task<IActionResult> GetFichasAnamnese()
+        {
+            try
+            {
+                var fichas = await _context.FichasAnamnese.Include(f => f.DadosBasicos).ToListAsync();
+                return Ok(fichas);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
+            }
+        }
     }
 }

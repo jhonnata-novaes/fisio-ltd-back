@@ -3,37 +3,37 @@ using fisio_ltd_back.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+//#region DbContext
+// Configuração do DbContext para usar PostgreSQL
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );
-#endregion
+//#endregion
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
+// Adiciona serviços ao contêiner.
+builder.Services.AddEndpointsApiExplorer(); // Para explorar endpoints da API
+builder.Services.AddSwaggerGen(); // Para gerar documentação Swagger
+builder.Services.AddControllers(); // Adiciona suporte ao controlador
 
-// Adicione a configuração de CORS
+// Configuração de CORS para permitir chamadas do frontend Angular
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:4200") // Permitir a origem da sua aplicação Angular
-                          .AllowAnyMethod() // Permitir qualquer método (GET, POST, etc.)
-                          .AllowAnyHeader()); // Permitir qualquer cabeçalho
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+        builder.WithOrigins("http://localhost:4200") // Permitir a origem da aplicação Angular
+               .AllowAnyMethod() // Permitir qualquer método (GET, POST, etc.)
+               .AllowAnyHeader()); // Permitir qualquer cabeçalho
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuração do pipeline de requisição HTTP.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); // Habilita o Swagger apenas em ambiente de desenvolvimento
+    app.UseSwaggerUI(); // Interface do Swagger
 }
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowSpecificOrigin"); // Aplicar a política CORS
 
-app.MapControllers();
-app.Run();
+app.MapControllers(); // Mapeia os controladores da API
+app.Run(); // Inicia a aplicação
