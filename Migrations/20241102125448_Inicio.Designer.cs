@@ -12,8 +12,8 @@ using fisio_ltd_back.Models;
 namespace fisio_ltd_back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241016195101_inicio")]
-    partial class inicio
+    [Migration("20241102125448_Inicio")]
+    partial class Inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
