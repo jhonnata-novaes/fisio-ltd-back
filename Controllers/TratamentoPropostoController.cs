@@ -32,19 +32,69 @@ namespace fisio_ltd_back.Controllers
                 return StatusCode(500, "Erro ao salvar no banco de dados: " + ex.Message);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTratamentoPropostoPorId(int id)
+        {
+            Console.WriteLine($"Requisição para obter paciente com ID: {id}");
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetTratamentoProposto()
-        // {
-        //     try
-        //     {
-        //         var tratamento = await _context.TratamentoProposto.Include(e => e.DadosBasicos).ToListAsync();
-        //         return Ok(tratamento);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+            var tratamento = await _context.TratamentoProposto
+                                    .Where(e => e.DadosBasicosId == id)
+                                    .ToListAsync();
+
+            if (tratamento == null || !tratamento.Any())
+            {
+                return NotFound("Tratamento não encontrados para este paciente.");
+            }
+
+            return Ok(tratamento); // Retorna a lista de exames encontrados
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarTratamentoProposto(int id, TratamentoProposto tratamento)
+        {
+            if (id != tratamento.Id)
+            {
+                return BadRequest("O ID da ficha de anamnese não coincide com o ID fornecido.");
+            }
+
+            try
+            {
+                var tratamentoExistente = await _context.TratamentoProposto.FindAsync(id);
+                if (tratamentoExistente == null)
+                {
+                    return NotFound("Ficha de anamnese não encontrada.");
+                }
+
+                // Atualizar os campos da ficha de anamnese existente
+                tratamentoExistente.Plano = tratamento.Plano;
+
+                _context.Entry(tratamentoExistente).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return NoContent(); // Retorna 204 No Content em caso de sucesso
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TratamentoPropostoExists(id))
+                {
+                    return NotFound("Ficha de anamnese não encontrada.");
+                }
+                else
+                {
+                    throw; // Relança a exceção se houver outro erro
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao atualizar os dados da ficha de anamnese: " + ex.Message);
+            }
+        }
+
+
+        private bool TratamentoPropostoExists(int id)
+        {
+            return _context.TratamentoProposto.Any(e => e.Id == id);
+        }
+
     }
 }

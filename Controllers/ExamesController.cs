@@ -32,20 +32,70 @@ namespace fisio_ltd_back.Controllers
                 return StatusCode(500, "Erro ao salvar no banco de dados: " + ex.Message);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetExamesPorId(int id)
+        {
+            Console.WriteLine($"Requisição para obter exames do paciente com ID: {id}");
 
-        // GET: api/exames
-        // [HttpGet]
-        // public async Task<IActionResult> GetExames()
-        // {
-        //     try
-        //     {
-        //         var exames = await _context.Exames.Include(e => e.DadosBasicos).ToListAsync();
-        //         return Ok(exames);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return StatusCode(500, "Erro ao recuperar dados do banco de dados: " + ex.Message);
-        //     }
-        // }
+            // Buscar exames associados ao paciente
+            var exames = await _context.Exames
+                                    .Where(e => e.DadosBasicosId == id) // Verifica se há exames para o paciente específico
+                                    .ToListAsync();
+
+            if (exames == null || !exames.Any())
+            {
+                return NotFound("Exames não encontrados para este paciente.");
+            }
+
+            return Ok(exames); // Retorna a lista de exames encontrados
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarExames(int id, Exames exames)
+        {
+            if (id != exames.Id)
+            {
+                return BadRequest("O ID da ficha de anamnese não coincide com o ID fornecido.");
+            }
+
+            try
+            {
+                var exameExistente = await _context.Exames.FindAsync(id);
+                if (exameExistente == null)
+                {
+                    return NotFound("Ficha de anamnese não encontrada.");
+                }
+
+                // Atualizar os campos da ficha de anamnese existente
+                exameExistente.ExamesComplementares = exames.ExamesComplementares;
+                exameExistente.ExameFisico = exames.ExameFisico;
+
+                _context.Entry(exameExistente).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return NoContent(); // Retorna 204 No Content em caso de sucesso
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExamesExists(id))
+                {
+                    return NotFound("Ficha de anamnese não encontrada.");
+                }
+                else
+                {
+                    throw; // Relança a exceção se houver outro erro
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao atualizar os dados da ficha de anamnese: " + ex.Message);
+            }
+        }
+
+        private bool ExamesExists(int id)
+        {
+            return _context.Exames.Any(e => e.Id == id);
+        }
+
     }
 }
