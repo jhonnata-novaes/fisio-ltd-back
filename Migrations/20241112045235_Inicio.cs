@@ -100,14 +100,38 @@ namespace fisio_ltd_back.Migrations
                 {
                     table.PrimaryKey("PK_TratamentoProposto", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TratamentoStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DadosBasicosId = table.Column<int>(type: "integer", nullable: false),
+                    Finalizado = table.Column<bool>(type: "boolean", nullable: false),
+                    Cancelado = table.Column<bool>(type: "boolean", nullable: false),
+                    DataAtualizacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TratamentoStatus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TratamentoStatus_DadosBasicos_DadosBasicosId",
+                        column: x => x.DadosBasicosId,
+                        principalTable: "DadosBasicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TratamentoStatus_DadosBasicosId",
+                table: "TratamentoStatus",
+                column: "DadosBasicosId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "DadosBasicos");
-
             migrationBuilder.DropTable(
                 name: "DiagnosticoPrognostico");
 
@@ -119,6 +143,12 @@ namespace fisio_ltd_back.Migrations
 
             migrationBuilder.DropTable(
                 name: "TratamentoProposto");
+
+            migrationBuilder.DropTable(
+                name: "TratamentoStatus");
+
+            migrationBuilder.DropTable(
+                name: "DadosBasicos");
         }
     }
 }

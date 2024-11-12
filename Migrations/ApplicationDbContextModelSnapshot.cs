@@ -173,6 +173,44 @@ namespace fisio_ltd_back.Migrations
 
                     b.ToTable("TratamentoProposto");
                 });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.TratamentoStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Cancelado")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("DadosBasicosId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DataAtualizacao")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Finalizado")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DadosBasicosId");
+
+                    b.ToTable("TratamentoStatus");
+                });
+
+            modelBuilder.Entity("fisio_ltd_back.Models.TratamentoStatus", b =>
+                {
+                    b.HasOne("fisio_ltd_back.Models.DadosBasicos", "DadosBasicos")
+                        .WithMany()
+                        .HasForeignKey("DadosBasicosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DadosBasicos");
+                });
 #pragma warning restore 612, 618
         }
     }

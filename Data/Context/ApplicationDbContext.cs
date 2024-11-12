@@ -14,6 +14,8 @@ namespace fisio_ltd_back.Models
         public DbSet<Exames> Exames { get; set; }
         public DbSet<DiagnosticoPrognostico> DiagnosticoPrognostico { get; set; }
         public DbSet<TratamentoProposto> TratamentoProposto { get; set; }
+        public DbSet<TratamentoStatus> TratamentoStatus { get; set; }
+
         
     }
 }
