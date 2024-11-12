@@ -94,7 +94,8 @@ namespace fisio_ltd_back.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DadosBasicosId = table.Column<int>(type: "integer", nullable: false),
-                    Plano = table.Column<string>(type: "text", nullable: true)
+                    Plano = table.Column<string>(type: "text", nullable: true),
+                    StatusTratamento = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

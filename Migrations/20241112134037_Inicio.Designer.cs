@@ -12,7 +12,7 @@ using fisio_ltd_back.Models;
 namespace fisio_ltd_back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241102125448_Inicio")]
+    [Migration("20241112134037_Inicio")]
     partial class Inicio
     {
         /// <inheritdoc />
@@ -170,6 +170,9 @@ namespace fisio_ltd_back.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Plano")
+                        .HasColumnType("text");
+
+                    b.Property<string>("StatusTratamento")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

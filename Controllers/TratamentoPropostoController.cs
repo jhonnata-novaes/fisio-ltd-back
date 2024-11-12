@@ -68,6 +68,12 @@ namespace fisio_ltd_back.Controllers
                 // Atualizar os campos da ficha de anamnese existente
                 tratamentoExistente.Plano = tratamento.Plano;
 
+                // Verificar se o status foi alterado, se não, define como "Pendente"
+                if (string.IsNullOrEmpty(tratamentoExistente.StatusTratamento))
+                {
+                    tratamentoExistente.StatusTratamento = "Pendente"; // Define como Pendente se não informado
+                }
+
                 _context.Entry(tratamentoExistente).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
@@ -90,11 +96,42 @@ namespace fisio_ltd_back.Controllers
             }
         }
 
-
         private bool TratamentoPropostoExists(int id)
         {
             return _context.TratamentoProposto.Any(e => e.Id == id);
         }
 
+
+        [HttpPut("finalizar/{id}")]
+        public async Task<IActionResult> FinalizarTratamento(int id)
+        {
+            var tratamentoExistente = await _context.TratamentoProposto.FindAsync(id);
+            if (tratamentoExistente == null)
+            {
+                return NotFound("Tratamento não encontrado.");
+            }
+
+            tratamentoExistente.StatusTratamento = "Finalizado";
+            _context.Entry(tratamentoExistente).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // Retorna 204 No Content em caso de sucesso
+        }
+
+        [HttpPut("cancelado/{id}")]
+        public async Task<IActionResult> AtualizarStatusCancelado(int id)
+        {
+            var tratamentoExistente = await _context.TratamentoProposto.FindAsync(id);
+            if (tratamentoExistente == null)
+            {
+                return NotFound("Tratamento não encontrado.");
+            }
+
+            tratamentoExistente.StatusTratamento = "Cancelado";
+            _context.Entry(tratamentoExistente).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // Retorna 204 No Content em caso de sucesso
+        }
     }
 }

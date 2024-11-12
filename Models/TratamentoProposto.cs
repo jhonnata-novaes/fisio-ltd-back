@@ -10,5 +10,6 @@ namespace fisio_ltd_back.Models
         public int Id { get; set; }
         public int DadosBasicosId { get; set; }
         public string? Plano { get; set; }
+        public string? StatusTratamento { get; set; } 
     }
 }

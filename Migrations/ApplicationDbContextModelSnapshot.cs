@@ -169,6 +169,9 @@ namespace fisio_ltd_back.Migrations
                     b.Property<string>("Plano")
                         .HasColumnType("text");
 
+                    b.Property<string>("StatusTratamento")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("TratamentoProposto");
