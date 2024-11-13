@@ -21,6 +21,12 @@ namespace fisio_ltd_back.Controllers
         {
             try
             {
+                // Garantir que o status do tratamento não seja nulo
+                if (string.IsNullOrEmpty(tratamento.StatusTratamento))
+                {
+                    tratamento.StatusTratamento = "Pendente"; // Ou o valor padrão que você preferir
+                }
+
                 // Salvando no banco de dados
                 _context.TratamentoProposto.Add(tratamento);
                 await _context.SaveChangesAsync();
@@ -32,6 +38,7 @@ namespace fisio_ltd_back.Controllers
                 return StatusCode(500, "Erro ao salvar no banco de dados: " + ex.Message);
             }
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTratamentoPropostoPorId(int id)
         {
